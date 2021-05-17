@@ -1,4 +1,7 @@
-﻿# Modiferty - Property Modification
+﻿# Secure Modiferty - Property Modification
+ 
+ Hexat package was used for the XOR operation.
+ https://gist.github.com/keroxp/7b6b4ca6a45f4067e9c0079b2a7255b5
 
 **Created by Hiroya Aramaki ([Makihiro](https://twitter.com/makihiro_dev))**
 
