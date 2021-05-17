@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using UnityEngine;
 using MackySoft.Modiferty.Modifiers;
 
 namespace MackySoft.Modiferty {
 
 	[Serializable]
-	public class ModifiableFloat : ModifieableProperty<float> {
+	public class ModifiableFloat : SecureModifieableProperty<float> {
 		public ModifiableFloat () : this(default) {
 		}
 		public ModifiableFloat (float baseValue) : base(baseValue) {
