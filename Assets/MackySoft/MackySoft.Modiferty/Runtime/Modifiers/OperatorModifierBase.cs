@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using System;
+using UnityEngine;
 
 namespace MackySoft.Modiferty.Modifiers {
 
@@ -7,10 +8,10 @@ namespace MackySoft.Modiferty.Modifiers {
 		Subtractive = 1,
 		Multiply = 2,
 		Division = 3,
-		Set = 4
+		Set = 4,
 	}
 
-	public abstract class OperatorModifierBase<TRHS,TResult> : ModifieableProperty<TRHS>, IModifier<TResult> {
+	public abstract class OperatorModifierBase<TRHS,TResult> : SecureModifieableProperty<TRHS>, IModifier<TResult> {
 
 		[SerializeField]
 		int m_Priority;
@@ -20,22 +21,23 @@ namespace MackySoft.Modiferty.Modifiers {
 			set => m_Priority = value;
 		}
 
-		protected OperatorModifierBase () : this(default) {
+		protected OperatorModifierBase () : this((TRHS)default) {
 		}
+		
 
-		protected OperatorModifierBase (TRHS baseValue) : base(baseValue) {
+		protected OperatorModifierBase (TRHS baseValue) : base(baseValue){
 		}
-
 		public abstract TResult Evaluate (TResult value);
 
 	}
 
 	public abstract class OperatorModifierBase<T> : OperatorModifierBase<T,T> {
-		protected OperatorModifierBase () : this(default) {
+		protected OperatorModifierBase () : this((T)default) {
 		}
 
 		protected OperatorModifierBase (T baseValue) : base(baseValue) {
 		}
-	}
+
+    }
 
 }
