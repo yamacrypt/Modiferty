@@ -42,6 +42,7 @@ namespace Hexat
             return new SecureFloat(v);
         }
     }
+    //add New<T> method  
     public static class SecureValue
     {
         public static object New<T>(float v=0)
