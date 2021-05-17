@@ -1,29 +1,33 @@
-﻿using System;
+using System;
 using UnityEngine;
 using MackySoft.Modiferty.Modifiers;
 
 namespace MackySoft.Modiferty {
 
 	[Serializable]
-	public class ModifiableInt : ModifieableProperty<int> {
-		public ModifiableInt () : this(default) {
+	public class ModifiableInt : SecureModifieableProperty<int> {
+		public ModifiableInt () : this((int)default) {
 		}
 		public ModifiableInt (int baseValue) : base(baseValue) {
 		}
-	}
+
+   
+    }
 
 	#region Operator Modifiers
 
 	[Serializable]
 	public class AdditiveModifierInt : OperatorModifierBase<int> {
 
-		public AdditiveModifierInt () : this(default) {
+		public AdditiveModifierInt () : this((int)default) {
 		}
 
 		public AdditiveModifierInt (int baseValue) : base(baseValue) {
 		}
 
-		public override int Evaluate (int value) {
+
+
+        public override int Evaluate (int value) {
 			return value + Evaluate();
 		}
 
@@ -32,12 +36,13 @@ namespace MackySoft.Modiferty {
 	[Serializable]
 	public class SubtractiveModifierInt : OperatorModifierBase<int> {
 
-		public SubtractiveModifierInt () : this(default) {
+		public SubtractiveModifierInt () : this((int)default) {
 		}
 		public SubtractiveModifierInt (int baseValue) : base(baseValue) {
 		}
 
-		public override int Evaluate (int value) {
+      
+        public override int Evaluate (int value) {
 			return value - Evaluate();
 		}
 
@@ -62,7 +67,8 @@ namespace MackySoft.Modiferty {
 			m_RoundingMethod = roundingMethod;
 		}
 
-		public override int Evaluate (int value) {
+
+        public override int Evaluate (int value) {
 			return (value * Evaluate()).RoundToInt(m_RoundingMethod);
 		}
 
