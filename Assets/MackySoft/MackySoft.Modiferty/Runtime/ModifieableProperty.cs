@@ -1,6 +1,6 @@
-﻿using System;
+using System;
+using Hexat;
 using UnityEngine;
-
 namespace MackySoft.Modiferty {
 
 	public interface IReadOnlyModifiableProperty<T> {
@@ -41,19 +41,17 @@ namespace MackySoft.Modiferty {
 		new IModifierList<T> Modifiers { get; }
 
 	}
-
-	[Serializable]
-	public class ModifieableProperty<T> : IModifiableProperty<T> {
-
-		[SerializeField]
-		T m_BaseValue;
+    public class SecureModifieableProperty<T> : IModifiableProperty<T>
+    {
+        [SerializeField]
+		ISecureValue<T> m_BaseValue= (ISecureValue<T>)SecureValue.New<T>();
 
 		[NonSerialized]
 		ModifierList<T> m_Modifiers;
 
 		public T BaseValue {
-			get => m_BaseValue;
-			set => m_BaseValue = value;
+			get => m_BaseValue.Value;
+			set => m_BaseValue.Value=value;
 		}
 
 		public IModifierList<T> Modifiers => m_Modifiers ?? (m_Modifiers = new ModifierList<T>());
@@ -62,17 +60,19 @@ namespace MackySoft.Modiferty {
 
 		IReadOnlyModifierList<T> IReadOnlyModifiableProperty<T>.Modifiers => Modifiers;
 		
-		public ModifieableProperty () : this(default) {
+		public SecureModifieableProperty () : this(default) {
 		}
 
-		public ModifieableProperty (T baseValue) {
-			m_BaseValue = baseValue;
+		public SecureModifieableProperty (T baseValue) {
+			m_BaseValue.Value = baseValue;
 		}
 
 		public T Evaluate () {
-			return (m_Modifiers != null) ? m_Modifiers.Evaluate(m_BaseValue) : m_BaseValue;
+			return (m_Modifiers != null) ? m_Modifiers.Evaluate(m_BaseValue.Value) : m_BaseValue.Value;
 		}
-
-	}
+    }
+	
+	
+    
 
 }
